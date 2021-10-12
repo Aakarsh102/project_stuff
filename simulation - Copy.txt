@@ -1,0 +1,89 @@
+from threading import*
+import random
+
+
+human = []
+
+class Human:
+    def __init__(self,age):
+        self.gender = random.randint(0,1)
+        self.age = age
+
+food=50
+l=[]
+class Function:
+
+    def harvest(self):
+        global food
+        global human
+        for i in human:
+            if i.age >=10 and i.age<=65:
+                food+=1.92985
+
+            else:
+                continue
+
+    def consume(self):
+        global food
+        global human
+
+        if food >= len(human)*1.125:
+            food -= len(human)*1.125
+        else:
+            x = int(food//1.125)
+            population_terminated = len(human)-x
+            if population_terminated<len(human):
+                for i in range(population_terminated):
+                    human.pop(random.randint(1,len(human)-1))
+                    food = 0
+            else:
+                human=[]
+    def kill(self):
+        for i in human:
+            if i.age >80:
+                human.remove(i)
+
+
+
+    def birth(self):
+        for i in human:
+            if i.gender == 0 and i.age >= 12 and i.age<=45:
+                if random.randint(1,5) == 2:
+                    human.append(Human(0))
+
+    def age(self):
+        for i in human:
+            i.age +=1
+
+    def final_population(self):
+        global l
+        # return len(human)
+        print(len(human))
+        l.append(len(human))
+    def food(self):
+        global food
+        return food
+
+for i in range(50):
+    human.append(Human(random.randint(5,70)))
+n=0
+life_process=Function()
+while len(human)<=1000000:
+
+    t1=Thread(target=life_process.harvest)
+    t2=Thread(target=life_process.consume)
+    t3=Thread(target=life_process.age)
+
+
+    t4=Thread(target=life_process.kill)
+    t5=Thread(target=life_process.birth)
+    t6=Thread(target=life_process.final_population)
+    t1.start()
+    t2.start()
+    t3.start()
+    # t4.start()
+    t5.start()
+    t6.start()
+    n+=1
+
+n = input()ss
